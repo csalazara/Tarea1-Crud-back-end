@@ -26,12 +26,6 @@ public class UserRestController {
         return UserRepository.findAll();
     }
 
-    @PostMapping
-    public User addUser(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return UserRepository.save(user);
-    }
-
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return UserRepository.findById(id).orElseThrow(RuntimeException::new);
@@ -55,11 +49,6 @@ public class UserRestController {
                     user.setId(id);
                     return UserRepository.save(user);
                 });
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        UserRepository.deleteById(id);
     }
 
     @GetMapping("/me")
